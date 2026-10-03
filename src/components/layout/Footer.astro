@@ -11,12 +11,13 @@ import SakuraSVG from '../svg/SakuraSvg';
 
 interface Props {
   className?: string;
+  showStats?: boolean;
 }
 
-const { className } = Astro.props;
+const { className, showStats = true } = Astro.props;
 
 const locale = getLocaleFromUrl(Astro.url.pathname);
-const stats = await getSiteStats();
+const stats = showStats ? await getSiteStats() : null;
 const currentYear = new Date().getFullYear();
 const startYear = siteConfig?.startYear ?? currentYear;
 ---
@@ -27,7 +28,8 @@ const startYear = siteConfig?.startYear ?? currentYear;
     <FooterAnnouncementEntry client:load />
 
     <!-- Site Stats -->
-    <div class="text-muted-foreground flex flex-wrap items-center justify-center gap-6 text-sm md:gap-4">
+    {stats && (
+<div class="text-muted-foreground flex flex-wrap items-center justify-center gap-6 text-sm md:gap-4">
       <button class="flex items-center gap-2 opacity-75 transition-opacity duration-300 hover:opacity-100" title={t(locale, 'footer.totalWordsTitle')}>
         <Icon name="ri:file-text-line" class="h-4 w-4" />
         <span class="font-medium">{stats.formattedWords}</span>
@@ -61,6 +63,7 @@ const startYear = siteConfig?.startYear ?? currentYear;
       )}
 
     </div>
+    )}
 
     <!-- Copyright -->
     <div class="text-muted-foreground flex items-center gap-0.5 text-sm">
