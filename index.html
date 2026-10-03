@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7fc" />
+    <meta
+      name="description"
+      content="Miro 图库，收藏与分享喜欢的二次元图片。"
+    />
+    <title>图库 · Miro</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="no-photos">
+    <div class="app-shell">
+      <header class="top-app-bar">
+        <a class="brand" href="/" aria-label="Miro 首页">
+          <span>miro</span>
+        </a>
+        <a class="random-action" href="/api" aria-label="随机看一张图片">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+          </svg>
+          <span>随机看一张</span>
+        </a>
+      </header>
+
+      <main class="main-content">
+        <section class="gallery-section" aria-labelledby="gallery-title">
+          <div class="section-heading">
+            <div>
+              <h1 id="gallery-title">图库</h1>
+              <p class="photo-count"><span data-photo-count>0</span> 张图片</p>
+            </div>
+          </div>
+
+          <div class="photo-grid" aria-label="图片列表">
+            <!-- PHOTO_GALLERY -->
+          </div>
+
+          <section class="empty-state" aria-label="图库还没有图片">
+            <div class="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="5" y="5" width="38" height="38" rx="13" />
+                <circle cx="17" cy="17" r="3" />
+                <path d="m7 34 11-11 8 8 5-5 10 10" />
+              </svg>
+            </div>
+            <h2>图库还没有图片</h2>
+            <p>把喜欢的瞬间收进这里。</p>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="/gallery.js" defer></script>
+  </body>
+</html>
