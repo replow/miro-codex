@@ -14,7 +14,8 @@
   --md-sys-shape-corner-full: 999px;
   --md-sys-shape-corner-large: 24px;
   --md-sys-shape-corner-medium: 16px;
-  font-family: Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --brand-font: Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--brand-font);
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-background);
   font-synthesis: none;
@@ -47,6 +48,7 @@ a { color: inherit; }
   align-items: center;
   gap: 10px;
   color: var(--md-sys-color-primary);
+  font-family: var(--brand-font);
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.7px;
@@ -82,7 +84,7 @@ a { color: inherit; }
 .section-heading h1 {
   margin: 0;
   color: var(--md-sys-color-on-surface);
-  font-family: 'Noto Serif SC', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Songti SC', serif;
+  font-family: var(--brand-font);
   font-size: clamp(42px, 4vw, 56px);
   font-weight: 700;
   letter-spacing: -0.06em;
