@@ -8,6 +8,9 @@ const loading = document.querySelector('[data-viewer-loading]');
 const errorPanel = document.querySelector('[data-viewer-error]');
 const zoomLabel = document.querySelector('[data-zoom-level]');
 const downloadLink = document.querySelector('[data-download]');
+const fullscreenToggle = document.querySelector('[data-fullscreen-toggle]');
+const appShell = document.querySelector('.app-shell');
+let immersiveMode = false;
 
 function setError() {
   loading.hidden = true;
@@ -60,10 +63,46 @@ if (!imageUrl || imageUrl.origin !== window.location.origin || !imageUrl.pathnam
     zoom = Math.min(4, Math.max(0.5, nextZoom));
     image.style.transform = `scale(${zoom})`;
     zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+    if (zoom > 1) enterImmersiveMode();
+    if (zoom <= 1 && immersiveMode) exitImmersiveMode();
   };
+  function syncFullscreenState() {
+    const isFullscreen = document.fullscreenElement === appShell;
+    const active = isFullscreen || immersiveMode;
+    document.body.classList.toggle('is-fullscreen', active);
+    fullscreenToggle.setAttribute('aria-label', active ? '退出全屏' : '进入全屏');
+    fullscreenToggle.title = active ? '退出全屏（F 或 Esc）' : '进入全屏（F）';
+    fullscreenToggle.innerHTML = active
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5H3m18 0h-5V3M3 16h5v5m13-5h-5v5" /></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3" /></svg>';
+  }
+  function enterImmersiveMode() {
+    immersiveMode = true;
+    syncFullscreenState();
+    if (!document.fullscreenElement && appShell.requestFullscreen) {
+      appShell.requestFullscreen().catch(() => {});
+    }
+  }
+  function exitImmersiveMode() {
+    immersiveMode = false;
+    syncFullscreenState();
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+  fullscreenToggle.addEventListener('click', () => {
+    if (document.body.classList.contains('is-fullscreen')) exitImmersiveMode();
+    else enterImmersiveMode();
+  });
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) immersiveMode = false;
+    syncFullscreenState();
+  });
   document.querySelector('[data-zoom-in]').addEventListener('click', () => setZoom(zoom + 0.25));
   document.querySelector('[data-zoom-out]').addEventListener('click', () => setZoom(zoom - 0.25));
-  document.querySelector('[data-zoom-reset]').addEventListener('click', () => setZoom(1));
+  document.querySelector('[data-zoom-reset]').addEventListener('click', () => {
+    setZoom(1);
+  });
   stage.addEventListener('wheel', (event) => {
     event.preventDefault();
     setZoom(zoom + (event.deltaY < 0 ? 0.15 : -0.15));
@@ -71,7 +110,13 @@ if (!imageUrl || imageUrl.origin !== window.location.origin || !imageUrl.pathnam
   window.addEventListener('keydown', (event) => {
     if (event.key === '+' || event.key === '=') setZoom(zoom + 0.25);
     if (event.key === '-' || event.key === '_') setZoom(zoom - 0.25);
-    if (event.key === '0') setZoom(1);
-    if (event.key === 'Escape') window.location.href = '/';
+    if (event.key === '0') {
+      setZoom(1);
+    }
+    if (event.key.toLowerCase() === 'f') {
+      if (document.body.classList.contains('is-fullscreen')) exitImmersiveMode();
+      else enterImmersiveMode();
+    }
+    if (event.key === 'Escape' && document.body.classList.contains('is-fullscreen')) exitImmersiveMode();
   });
 }
