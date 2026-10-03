@@ -4,7 +4,7 @@ A small, static HTML photo gallery with a Cloudflare Pages random image endpoint
 
 ## Build and preview
 
-Requires Node.js 22 or later and pnpm 10.
+Requires Node.js 22 or later and pnpm 10. The optional local preview command also uses Python 3.
 
 ```bash
 pnpm install --frozen-lockfile
