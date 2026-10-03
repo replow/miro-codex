@@ -1,0 +1,131 @@
+---
+import type { Photo } from '@lib/photos';
+
+interface Props {
+  photos: Photo[];
+  locale: string;
+}
+
+const { photos, locale } = Astro.props;
+const labels = {
+  zh: { title: '图库', random: '随机看一张', empty: '把图片放进 public/photos/，构建后就会显示在这里。' },
+  en: { title: 'Photo gallery', random: 'Random photo', empty: 'Add images to public/photos/ and rebuild to show them here.' },
+  ja: {
+    title: 'フォトギャラリー',
+    random: 'ランダムに見る',
+    empty: 'public/photos/ に画像を入れて再ビルドすると表示されます。',
+  },
+  ko: { title: '사진 갤러리', random: '사진 무작위 보기', empty: 'public/photos/에 이미지를 넣고 다시 빌드하면 표시됩니다.' },
+} as const;
+const copy = labels[locale as keyof typeof labels] ?? labels.zh;
+---
+
+<section class="photo-gallery" aria-labelledby="photo-gallery-title">
+  <header class="photo-gallery-header">
+    <div>
+      <h2 id="photo-gallery-title">{copy.title}</h2>
+      <p>{photos.length}</p>
+    </div>
+    <a href="/api" class="photo-gallery-random">{copy.random}</a>
+  </header>
+
+  {photos.length > 0 ? (
+    <div class="photo-gallery-grid">
+      {photos.map((photo) => (
+        <a class="photo-gallery-item" href={photo.src} target="_blank" rel="noreferrer" aria-label={photo.alt}>
+          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+        </a>
+      ))}
+    </div>
+  ) : (
+    <p class="photo-gallery-empty">{copy.empty}</p>
+  )}
+</section>
+
+<style>
+  .photo-gallery {
+    padding: 1.25rem;
+    border: 1px solid hsl(var(--border) / 0.7);
+    border-radius: 1rem;
+    background: hsl(var(--card) / 0.78);
+  }
+
+  .photo-gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .photo-gallery-header h2 {
+    margin: 0;
+    color: hsl(var(--foreground));
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .photo-gallery-header p {
+    margin: 0.2rem 0 0;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.8rem;
+  }
+
+  .photo-gallery-random {
+    flex: none;
+    color: hsl(var(--primary));
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .photo-gallery-random:hover {
+    text-decoration: underline;
+  }
+
+  .photo-gallery-grid {
+    columns: 2;
+    column-gap: 0.75rem;
+  }
+
+  .photo-gallery-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: hsl(var(--muted));
+  }
+
+  .photo-gallery-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 250ms ease;
+  }
+
+  .photo-gallery-item:hover img {
+    transform: scale(1.035);
+  }
+
+  .photo-gallery-empty {
+    margin: 0;
+    padding: 2rem 1rem;
+    border: 1px dashed hsl(var(--border));
+    border-radius: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 768px) {
+    .photo-gallery-grid {
+      columns: 3;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .photo-gallery-grid {
+      columns: 4;
+    }
+  }
+</style>
