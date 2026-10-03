@@ -18,6 +18,8 @@ await fs.rm(output, { recursive: true, force: true });
 await fs.mkdir(output, { recursive: true });
 await fs.copyFile(path.join(root, 'styles.css'), path.join(output, 'styles.css'));
 await fs.copyFile(path.join(root, 'api-docs.html'), path.join(output, 'api-docs.html'));
+await fs.copyFile(path.join(root, 'photo-viewer.html'), path.join(output, 'photo-viewer.html'));
+await fs.copyFile(path.join(root, 'photo-viewer.js'), path.join(output, 'photo-viewer.js'));
 
 let photoNames = [];
 try {
@@ -34,7 +36,8 @@ const gallery = photoNames
     const src = `/photos/${encodeURIComponent(name)}`;
     const alt = escapeHtml(name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '));
     const loading = index < 3 ? 'eager' : 'lazy';
-    return `            <a class="photo-link" href="${src}" target="_blank" rel="noopener noreferrer" aria-label="${alt}"><img src="${src}" alt="${alt}" loading="${loading}" decoding="async"></a>`;
+    const viewerUrl = `/photo-viewer?src=${encodeURIComponent(src)}`;
+    return `            <a class="photo-link" href="${viewerUrl}" aria-label="查看图片：${alt}"><img src="${src}" alt="${alt}" loading="${loading}" decoding="async"></a>`;
   })
   .join('\n');
 

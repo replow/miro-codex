@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7fc" />
+    <meta name="description" content="查看 Ronova 图库图片详情，放大预览并下载原图。" />
+    <title>图片查看器 · Ronova</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="viewer-page">
+    <div class="app-shell">
+      <header class="top-app-bar viewer-bar">
+        <a class="viewer-back" href="/" aria-label="返回图库">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6M9 12h12" /></svg>
+          <span>返回图库</span>
+        </a>
+        <a class="brand" href="/" aria-label="Ronova 首页"><span>Ronova</span></a>
+        <div class="viewer-tools" aria-label="图片工具">
+          <button class="icon-button" type="button" data-zoom-out aria-label="缩小" title="缩小（-）">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5M7.8 10.8h6" /></svg>
+          </button>
+          <span class="zoom-level" data-zoom-level aria-live="polite">100%</span>
+          <button class="icon-button" type="button" data-zoom-in aria-label="放大" title="放大（+）">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5M7.8 10.8h6M10.8 7.8v6" /></svg>
+          </button>
+          <button class="icon-button reset-zoom" type="button" data-zoom-reset aria-label="重置缩放" title="重置缩放（0）">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8" /><path d="M3 3v5h5" /></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="viewer-main">
+        <section class="viewer-stage" data-viewer-stage aria-label="图片预览">
+          <div class="viewer-loading" data-viewer-loading>正在载入图片…</div>
+          <div class="viewer-error" data-viewer-error hidden>
+            <h1>无法打开这张图片</h1>
+            <p>图片地址无效，或图片暂时无法载入。</p>
+            <a class="random-action" href="/">返回图库</a>
+          </div>
+          <img class="viewer-image" data-viewer-image alt="" hidden />
+          <p class="zoom-hint" data-zoom-hint>滚动鼠标滚轮可缩放图片</p>
+        </section>
+
+        <aside class="viewer-details" aria-labelledby="viewer-title">
+          <div class="viewer-details-heading">
+            <span class="detail-eyebrow">RONOVA GALLERY</span>
+            <h1 id="viewer-title" data-image-name>图片详情</h1>
+          </div>
+          <dl class="metadata-list">
+            <div class="metadata-item"><dt>分辨率</dt><dd data-image-dimensions>载入中</dd></div>
+            <div class="metadata-item"><dt>文件大小</dt><dd data-image-size>读取中</dd></div>
+            <div class="metadata-item"><dt>格式</dt><dd data-image-format>—</dd></div>
+            <div class="metadata-item"><dt>文件名</dt><dd data-image-filename>—</dd></div>
+          </dl>
+          <a class="download-action" data-download download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v3h16v-3" /></svg>
+            <span>下载原图</span>
+          </a>
+          <p class="viewer-footnote">滚轮缩放，键盘 <kbd>+</kbd> / <kbd>−</kbd> 放大缩小，<kbd>0</kbd> 还原。</p>
+        </aside>
+      </main>
+    </div>
+    <script src="/photo-viewer.js" defer></script>
+  </body>
+</html>
