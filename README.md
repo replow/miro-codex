@@ -1,4 +1,4 @@
-# Miro Gallery
+# Ronova Gallery
 
 A small, static HTML photo gallery with a Cloudflare Pages random image endpoint.
 
