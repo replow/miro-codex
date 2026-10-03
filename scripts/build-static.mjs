@@ -17,7 +17,7 @@ function escapeHtml(value) {
 await fs.rm(output, { recursive: true, force: true });
 await fs.mkdir(output, { recursive: true });
 await fs.copyFile(path.join(root, 'styles.css'), path.join(output, 'styles.css'));
-await fs.copyFile(path.join(root, 'api.html'), path.join(output, 'api.html'));
+await fs.copyFile(path.join(root, 'api-docs.html'), path.join(output, 'api-docs.html'));
 
 let photoNames = [];
 try {
