@@ -8,3 +8,8 @@ These files are third-party screenshots, promotional images, or fan/community im
 - `public/photos/ronova-ruler.jpg`: https://moewalls.com/wp-content/uploads/2026/09/ronova-ruler-of-death-genshin-impact-thumb.jpg
 - `public/photos/ronova-arrival.webp`: https://static.allthings.how/wp-content/uploads/2026/09/moment-ViLDjXwj1Cg-1508-ronova-arrives.webp
 - `public/photos/ronova-poster.webp`: https://game-m.ru/editorial-media/genshin-impact-7-1-is-ronova-dead/hero-1280.webp
+- `public/photos/ronova-zerochan.jpg`: https://www.zerochan.net/4729163 (artist: Carlos Cabs)
+- `public/photos/ronova-motionbgs.jpg`: https://motionbgs.com/ronova-genshin-impact
+- `public/photos/ronova-devart-2609-4.jpg`: https://www.deviantart.com/drabinib/art/Ronova---2609---4-1375775234 (artist: DrabiniB, fan art)
+- `public/photos/ronova-devart-2609-2.jpg`: https://www.deviantart.com/drabinib/art/Ronova---2609---2-1375775306 (artist: DrabiniB, fan art)
+- `public/photos/ronova-anitoon.jpg`: https://www.deviantart.com/anitoonartcore/art/Ronova-%28Genshin-Impact%29-%3A-AX-DW-1087-1383835531 (artist: anitoonartcore, fan art)
