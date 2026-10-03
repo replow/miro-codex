@@ -1,6 +1,5 @@
 ---
 import HomeSider from '@components/layout/HomeSider.astro';
-import PhotoGallery from '@components/photo/PhotoGallery.astro';
 import PostList from '@components/post/PostList.astro';
 import Cover from '@components/ui/cover/Cover.astro';
 import { CONTENT_PADDING, PAGINATION } from '@constants/layout';
@@ -9,7 +8,6 @@ import Layout from '@layouts/Layout.astro';
 import TwoColumnLayout from '@layouts/TwoColumnLayout.astro';
 import { getHomePagePosts } from '@lib/content';
 import { toPostCardDataList } from '@lib/content/transforms';
-import { getPhotoPaths } from '@lib/photos';
 import type { Page } from 'astro';
 import type { BlogPost } from 'types/blog';
 import CategoryCards from '@/components/post/CategoryCards.astro';
@@ -34,7 +32,6 @@ const { pageSize } = PAGINATION;
 const regularPostsSlice = regularPosts.slice(0, pageSize);
 const posts = toPostCardDataList(regularPostsSlice, locale);
 const totalRegularPosts = regularPosts.length;
-const photoPaths = await getPhotoPaths();
 
 const homeUrl = localizedPath('/', locale);
 const postsBaseUrl = localizedPath('/posts', locale);
@@ -64,7 +61,6 @@ const page: Page<BlogPost> = {
     <div
       class={`bg-gradient-start shadow-box tablet:shadow-none flex flex-col gap-4 overflow-clip ${CONTENT_PADDING.standard}`}
     >
-      <PhotoGallery photos={photoPaths} locale={locale} />
       {stickyPosts.length > 0 && (
         <>
           <Divider>{t(locale, 'post.stickyPosts')}</Divider>

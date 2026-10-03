@@ -24,10 +24,6 @@ pnpm dev
 
 `config/site.yaml` 中的 `site.url` 当前设置为 `https://miro-codex.pages.dev`。如 Pages 项目使用其他名称或绑定了自定义域名，请一并更新该值。
 
-## 图片图库与随机图片 API
-
-把 `.jpg`、`.jpeg`、`.png`、`.webp`、`.gif` 或 `.avif` 图片放入 `public/photos/`，首页会在构建时自动列出它们，浏览器访问路径为 `/photos/文件名`。Cloudflare Pages Function 提供 `GET /api`，每次请求会随机重定向到一张图片；目录没有图片时返回 404。此 API 需要部署在 Cloudflare Pages 上运行。
-
 ## 主题与许可
 
 主题使用上游 Astro Koharu `v7.0.1`，对应源代码和许可证见 [上游说明](./ASTRO-KOHARU-README.md) 与 [Astro Koharu 许可证](./LICENSE-ASTRO-KOHARU)。本仓库原有的 [MIT 许可证](./LICENSE) 已保留。
