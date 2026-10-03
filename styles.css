@@ -79,7 +79,16 @@ a { color: inherit; }
 .main-content { width: min(100% - 64px, 1420px); margin: 0 auto; padding: 42px 0 72px; }
 .gallery-section { min-height: calc(100vh - 106px); }
 .section-heading { display: flex; align-items: end; justify-content: space-between; margin: 0 0 28px; }
-.section-heading h1 { margin: 0; color: var(--md-sys-color-on-surface); font-size: clamp(42px, 4vw, 56px); font-weight: 700; letter-spacing: -1.1px; line-height: 1.2; }
+.section-heading h1 {
+  margin: 0;
+  color: var(--md-sys-color-on-surface);
+  font-family: 'Noto Serif SC', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Songti SC', serif;
+  font-size: clamp(42px, 4vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
 .photo-count { margin: 7px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 14px; line-height: 20px; letter-spacing: 0.25px; }
 
 .photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
