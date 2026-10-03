@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7fc" />
+    <meta name="description" content="Ronova 随机图片 API 使用说明。" />
+    <title>API 使用说明 · Ronova</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-app-bar">
+        <a class="brand" href="/" aria-label="Ronova 首页"><span>Ronova</span></a>
+        <a class="docs-action" href="/" aria-label="返回 Ronova 图库">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+            <path d="M9 12h12" />
+          </svg>
+          <span>返回图库</span>
+        </a>
+      </header>
+
+      <main class="docs-content">
+        <h1 class="docs-title">随机图片 API</h1>
+        <p class="docs-intro">无需密钥。每次请求都会从 Ronova 图库中随机挑选一张图片，并将访问者跳转到图片地址。</p>
+
+        <section class="doc-section" aria-labelledby="endpoint-title">
+          <h2 id="endpoint-title">接口地址</h2>
+          <p>使用 GET 或 HEAD 请求以下地址：</p>
+          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api</code></div>
+          <p>接口会返回 <code>302 Found</code>，并通过 <code>Location</code> 响应头指向随机图片。浏览器、图片标签和支持自动跟随跳转的客户端会打开最终图片。</p>
+        </section>
+
+        <section class="doc-section" aria-labelledby="browser-title">
+          <h2 id="browser-title">直接使用</h2>
+          <p>在网页中把 API 地址作为图片来源即可，浏览器会跟随跳转：</p>
+          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api" alt="Ronova 随机图片"&gt;</code></pre>
+          <p>访问 <a href="/api">/api</a> 也可以直接打开一张随机图片。</p>
+        </section>
+
+        <section class="doc-section" aria-labelledby="curl-title">
+          <h2 id="curl-title">命令行示例</h2>
+          <p>查看跳转响应：</p>
+          <pre class="code-block"><code>curl -I https://miro-codex.pages.dev/api</code></pre>
+          <p>跟随跳转并保存最终图片：</p>
+          <pre class="code-block"><code>curl -L https://miro-codex.pages.dev/api -o ronova.jpg</code></pre>
+          <p>响应中包含 <code>Cache-Control: no-store</code>，以避免缓存随机选择结果。</p>
+        </section>
+
+        <section class="doc-section" aria-labelledby="response-title">
+          <h2 id="response-title">响应与限制</h2>
+          <dl class="status-list">
+            <div class="status-row"><dt>302 Found</dt><dd>成功选择图片。请读取 <code>Location</code> 或让客户端自动跟随跳转。</dd></div>
+            <div class="status-row"><dt>404</dt><dd>图库中没有可用图片，响应 JSON：<code>{"error":"No images found. Add images to public/photos/."}</code></dd></div>
+            <div class="status-row"><dt>405</dt><dd>不支持该请求方法；允许的方法为 GET 和 HEAD。</dd></div>
+          </dl>
+          <p>该接口不启用跨域访问（CORS）。第三方网页如需通过 JavaScript 读取跳转响应，请由自己的后端发起请求；同源页面、普通链接和 <code>&lt;img&gt;</code> 可直接使用。</p>
+        </section>
+
+        <section class="doc-section" aria-labelledby="gallery-title">
+          <h2 id="gallery-title">添加图片</h2>
+          <p>把 JPG、JPEG、PNG、WebP、GIF 或 AVIF 图片放进仓库的 <code>public/photos/</code> 目录，然后重新构建并部署。图库页面和随机图片 API 会自动使用这些图片。</p>
+          <a class="back-link" href="/">← 返回 Ronova 图库</a>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
