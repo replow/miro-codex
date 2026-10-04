@@ -208,12 +208,9 @@ a { color: inherit; }
 .status-row { display: grid; grid-template-columns: 90px 1fr; gap: 16px; align-items: start; }
 .status-row dt { color: var(--md-sys-color-primary); font-size: 14px; font-weight: 700; }
 .status-row dd { margin: 0; color: var(--md-sys-color-on-surface-variant); font-size: 14px; line-height: 1.7; }
-.parameter-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
-.parameter-card { display: flex; min-height: 126px; flex-direction: column; align-items: flex-start; padding: 16px 18px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-surface); transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
-.parameter-card:hover { transform: translateY(-2px); border-color: var(--md-sys-color-primary); background: var(--md-sys-color-primary-container); }
-.parameter-card > code { display: inline-flex; margin-bottom: 13px; padding: 5px 9px; border-radius: 8px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-primary); font-size: 13px; font-weight: 700; }
-.parameter-card strong { color: var(--md-sys-color-on-surface); font-size: 16px; }
-.parameter-card p { margin: 4px 0 0; font-size: 13px; line-height: 1.6; }
+.parameter-list { display: grid; gap: 14px; margin-top: 18px; }
+.parameter-option .endpoint { margin-top: 0; }
+.parameter-option p { margin: 7px 4px 0; font-size: 14px; }
 .back-link { display: inline-flex; margin-top: 14px; color: var(--md-sys-color-primary); font-size: 14px; font-weight: 600; text-decoration: none; }
 
 @media (max-width: 760px) {
@@ -264,7 +261,6 @@ a { color: inherit; }
   .endpoint code { font-size: 12px; }
   .code-block { padding: 14px; font-size: 12px; }
   .status-row { grid-template-columns: 72px 1fr; gap: 10px; }
-  .parameter-list { grid-template-columns: 1fr; }
   .viewer-bar { min-height: 64px; padding-inline: 12px; }
   .viewer-back { gap: 5px; font-size: 12px; }
   .viewer-back svg { width: 17px; height: 17px; }

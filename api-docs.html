@@ -34,36 +34,35 @@
         <section class="doc-section" aria-labelledby="endpoint-title">
           <h2 id="endpoint-title">接口地址</h2>
           <p>使用 GET 或 HEAD 请求以下地址：</p>
-          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api</code></div>
+          <div class="endpoint"><span class="method">GET</span><code>https://ronova.top/api</code></div>
           <p>接口会返回 <code>302 Found</code>，并通过 <code>Location</code> 响应头指向随机图片。浏览器、图片标签和支持自动跟随跳转的客户端会打开最终图片。</p>
         </section>
 
         <section class="doc-section" aria-labelledby="filter-title">
           <h2 id="filter-title">按比例获取</h2>
           <p>在地址后添加参数，可以限定随机图片的方向：</p>
-          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api?landscape</code></div>
           <div class="parameter-list">
-            <div class="parameter-card"><code>?landscape</code><strong>横图</strong><p>随机获取横向图片。</p></div>
-            <div class="parameter-card"><code>?portrait</code><strong>竖图</strong><p>随机获取纵向图片。</p></div>
-            <div class="parameter-card"><code>?square</code><strong>方图</strong><p>随机获取接近正方形的图片。</p></div>
-            <div class="parameter-card"><code>?name=文件名</code><strong>指定图片</strong><p>例如 <code>?name=ronova-arrival.webp</code>。</p></div>
+            <div class="parameter-option"><div class="endpoint"><span class="method">GET</span><code>https://ronova.top/api?landscape</code></div><p>随机获取横向图片。</p></div>
+            <div class="parameter-option"><div class="endpoint"><span class="method">GET</span><code>https://ronova.top/api?portrait</code></div><p>随机获取纵向图片。</p></div>
+            <div class="parameter-option"><div class="endpoint"><span class="method">GET</span><code>https://ronova.top/api?square</code></div><p>随机获取接近正方形的图片。</p></div>
+            <div class="parameter-option"><div class="endpoint"><span class="method">GET</span><code>https://ronova.top/api?name=文件名</code></div><p>获取指定图片，例如 <code>?name=ronova-arrival.webp</code>。</p></div>
           </div>
-          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api?landscape" alt="Ronova 横图"&gt;</code></pre>
+          <pre class="code-block"><code>&lt;img src="https://ronova.top/api?landscape" alt="Ronova 横图"&gt;</code></pre>
         </section>
 
         <section class="doc-section" aria-labelledby="browser-title">
           <h2 id="browser-title">直接使用</h2>
           <p>在网页中把 API 地址作为图片来源即可，浏览器会跟随跳转：</p>
-          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api" alt="Ronova 随机图片"&gt;</code></pre>
+          <pre class="code-block"><code>&lt;img src="https://ronova.top/api" alt="Ronova 随机图片"&gt;</code></pre>
           <p>访问 <a href="/api">/api</a> 也可以直接打开一张随机图片。</p>
         </section>
 
         <section class="doc-section" aria-labelledby="curl-title">
           <h2 id="curl-title">命令行示例</h2>
           <p>查看跳转响应：</p>
-          <pre class="code-block"><code>curl -I https://miro-codex.pages.dev/api</code></pre>
+          <pre class="code-block"><code>curl -I https://ronova.top/api</code></pre>
           <p>跟随跳转并保存最终图片：</p>
-          <pre class="code-block"><code>curl -L https://miro-codex.pages.dev/api -o ronova.jpg</code></pre>
+          <pre class="code-block"><code>curl -L https://ronova.top/api -o ronova.jpg</code></pre>
           <p>响应中包含 <code>Cache-Control: no-store</code>，以避免缓存随机选择结果。</p>
         </section>
 
