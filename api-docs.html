@@ -41,14 +41,14 @@
         <section class="doc-section" aria-labelledby="filter-title">
           <h2 id="filter-title">按比例获取</h2>
           <p>在地址后添加参数，可以限定随机图片的方向：</p>
-          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api?orientation=landscape</code></div>
-          <dl class="status-list">
-            <div class="status-row"><dt><code>?orientation=landscape</code></dt><dd>随机获取横图。</dd></div>
-            <div class="status-row"><dt><code>?orientation=portrait</code></dt><dd>随机获取竖图。</dd></div>
-            <div class="status-row"><dt><code>?orientation=square</code></dt><dd>随机获取方图。</dd></div>
-            <div class="status-row"><dt><code>?name=文件名</code></dt><dd>获取指定文件，例如 <code>?name=ronova-arrival.webp</code>。</dd></div>
-          </dl>
-          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api?orientation=landscape" alt="Ronova 横图"&gt;</code></pre>
+          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api?landscape</code></div>
+          <div class="parameter-list">
+            <div class="parameter-card"><code>?landscape</code><strong>横图</strong><p>随机获取横向图片。</p></div>
+            <div class="parameter-card"><code>?portrait</code><strong>竖图</strong><p>随机获取纵向图片。</p></div>
+            <div class="parameter-card"><code>?square</code><strong>方图</strong><p>随机获取接近正方形的图片。</p></div>
+            <div class="parameter-card"><code>?name=文件名</code><strong>指定图片</strong><p>例如 <code>?name=ronova-arrival.webp</code>。</p></div>
+          </div>
+          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api?landscape" alt="Ronova 横图"&gt;</code></pre>
         </section>
 
         <section class="doc-section" aria-labelledby="browser-title">
@@ -71,7 +71,7 @@
           <h2 id="response-title">响应与限制</h2>
           <dl class="status-list">
             <div class="status-row"><dt>302 Found</dt><dd>成功选择图片。请读取 <code>Location</code> 或让客户端自动跟随跳转。</dd></div>
-            <div class="status-row"><dt>400</dt><dd>方向参数无效。<code>orientation</code> 只能使用 <code>landscape</code>、<code>portrait</code> 或 <code>square</code>。</dd></div>
+            <div class="status-row"><dt>400</dt><dd>方向参数无效。请使用 <code>?landscape</code>、<code>?portrait</code> 或 <code>?square</code>。</dd></div>
             <div class="status-row"><dt>404</dt><dd>图库中没有可用图片，响应 JSON：<code>{"error":"No images found. Add images to public/photos/."}</code></dd></div>
             <div class="status-row"><dt>405</dt><dd>不支持该请求方法；允许的方法为 GET 和 HEAD。</dd></div>
           </dl>
