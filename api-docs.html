@@ -29,13 +29,26 @@
 
       <main class="docs-content">
         <h1 class="docs-title">随机图片 API</h1>
-        <p class="docs-intro">无需密钥。每次请求都会从 Ronova 图库中随机挑选一张图片，并将访问者跳转到图片地址。</p>
+        <p class="docs-intro">无需密钥。每次请求都会从 Ronova 图库中随机挑选一张图片，并将访问者跳转到图片地址。也可以用查询参数按比例筛选。</p>
 
         <section class="doc-section" aria-labelledby="endpoint-title">
           <h2 id="endpoint-title">接口地址</h2>
           <p>使用 GET 或 HEAD 请求以下地址：</p>
           <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api</code></div>
           <p>接口会返回 <code>302 Found</code>，并通过 <code>Location</code> 响应头指向随机图片。浏览器、图片标签和支持自动跟随跳转的客户端会打开最终图片。</p>
+        </section>
+
+        <section class="doc-section" aria-labelledby="filter-title">
+          <h2 id="filter-title">按比例获取</h2>
+          <p>在地址后添加参数，可以限定随机图片的方向：</p>
+          <div class="endpoint"><span class="method">GET</span><code>https://miro-codex.pages.dev/api?orientation=landscape</code></div>
+          <dl class="status-list">
+            <div class="status-row"><dt><code>?orientation=landscape</code></dt><dd>随机获取横图。</dd></div>
+            <div class="status-row"><dt><code>?orientation=portrait</code></dt><dd>随机获取竖图。</dd></div>
+            <div class="status-row"><dt><code>?orientation=square</code></dt><dd>随机获取方图。</dd></div>
+            <div class="status-row"><dt><code>?name=文件名</code></dt><dd>获取指定文件，例如 <code>?name=ronova-arrival.webp</code>。</dd></div>
+          </dl>
+          <pre class="code-block"><code>&lt;img src="https://miro-codex.pages.dev/api?orientation=landscape" alt="Ronova 横图"&gt;</code></pre>
         </section>
 
         <section class="doc-section" aria-labelledby="browser-title">
@@ -58,6 +71,7 @@
           <h2 id="response-title">响应与限制</h2>
           <dl class="status-list">
             <div class="status-row"><dt>302 Found</dt><dd>成功选择图片。请读取 <code>Location</code> 或让客户端自动跟随跳转。</dd></div>
+            <div class="status-row"><dt>400</dt><dd>方向参数无效。<code>orientation</code> 只能使用 <code>landscape</code>、<code>portrait</code> 或 <code>square</code>。</dd></div>
             <div class="status-row"><dt>404</dt><dd>图库中没有可用图片，响应 JSON：<code>{"error":"No images found. Add images to public/photos/."}</code></dd></div>
             <div class="status-row"><dt>405</dt><dd>不支持该请求方法；允许的方法为 GET 和 HEAD。</dd></div>
           </dl>
