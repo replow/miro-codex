@@ -20,6 +20,7 @@ await fs.copyFile(path.join(root, 'styles.css'), path.join(output, 'styles.css')
 await fs.copyFile(path.join(root, 'api-docs.html'), path.join(output, 'api-docs.html'));
 await fs.copyFile(path.join(root, 'photo-viewer.html'), path.join(output, 'photo-viewer.html'));
 await fs.copyFile(path.join(root, 'photo-viewer.js'), path.join(output, 'photo-viewer.js'));
+await fs.copyFile(path.join(root, 'site.js'), path.join(output, 'site.js'));
 
 let photoNames = [];
 try {
@@ -37,7 +38,7 @@ const gallery = photoNames
     const alt = escapeHtml(name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '));
     const loading = index < 3 ? 'eager' : 'lazy';
     const viewerUrl = `/photo-viewer?src=${encodeURIComponent(src)}`;
-    return `            <a class="photo-link" href="${viewerUrl}" aria-label="查看图片：${alt}"><img src="${src}" alt="${alt}" loading="${loading}" decoding="async"></a>`;
+    return `            <a class="photo-link" href="${viewerUrl}" data-photo-name="${alt.toLowerCase()}" aria-label="查看图片：${alt}"><img src="${src}" alt="${alt}" loading="${loading}" decoding="async"></a>`;
   })
   .join('\n');
 
@@ -47,6 +48,10 @@ html = html
   .replace('<!-- PHOTO_GALLERY -->', gallery)
   .replace('class="no-photos"', `class="${photoNames.length > 0 ? 'has-photos' : 'no-photos'}"`);
 await fs.writeFile(path.join(output, 'index.html'), html);
+
+let viewerHtml = await fs.readFile(path.join(root, 'photo-viewer.html'), 'utf8');
+viewerHtml = viewerHtml.replace('<!-- PHOTO_DATA -->', `<script>window.RONOVA_PHOTOS = ${JSON.stringify(photoNames.map((name) => `/photos/${encodeURIComponent(name)}`))};</script>`);
+await fs.writeFile(path.join(output, 'photo-viewer.html'), viewerHtml);
 
 if (photoNames.length > 0) {
   await fs.mkdir(path.join(output, 'photos'), { recursive: true });

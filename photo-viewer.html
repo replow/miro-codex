@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#f8f7fc" />
     <meta name="description" content="查看 Ronova 图库图片详情，放大预览并下载原图。" />
     <title>图片查看器 · Ronova</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('ronova-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="viewer-page">
@@ -17,6 +18,12 @@
         </a>
         <a class="brand" href="/" aria-label="Ronova 首页"><span>Ronova</span></a>
         <div class="viewer-tools" aria-label="图片工具">
+          <button class="icon-button viewer-nav-button" type="button" data-previous aria-label="上一张" title="上一张（←）">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+          </button>
+          <button class="icon-button viewer-nav-button" type="button" data-next aria-label="下一张" title="下一张（→）">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+          </button>
           <button class="icon-button" type="button" data-zoom-out aria-label="缩小" title="缩小（-）">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5M7.8 10.8h6" /></svg>
           </button>
@@ -29,6 +36,9 @@
           </button>
           <button class="icon-button fullscreen-toggle" type="button" data-fullscreen-toggle aria-label="进入全屏" title="进入全屏（F）">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3" /></svg>
+          </button>
+          <button class="icon-button theme-action viewer-theme-action" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">
+            <svg data-theme-icon viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5 8.5 8.5 0 1 0 20.5 14.6Z" /></svg>
           </button>
         </div>
       </header>
@@ -64,6 +74,8 @@
         </aside>
       </main>
     </div>
+    <!-- PHOTO_DATA -->
+    <script src="/site.js" defer></script>
     <script src="/photo-viewer.js" defer></script>
   </body>
 </html>

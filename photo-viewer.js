@@ -7,7 +7,10 @@ const errorPanel = document.querySelector('[data-viewer-error]');
 const zoomLabel = document.querySelector('[data-zoom-level]');
 const downloadLink = document.querySelector('[data-download]');
 const fullscreenToggle = document.querySelector('[data-fullscreen-toggle]');
+const previousButton = document.querySelector('[data-previous]');
+const nextButton = document.querySelector('[data-next]');
 const appShell = document.querySelector('.app-shell');
+const photoList = Array.isArray(window.RONOVA_PHOTOS) ? window.RONOVA_PHOTOS : [];
 let immersiveMode = false;
 
 async function resolveImageUrl() {
@@ -45,6 +48,7 @@ function showImage(imageUrl) {
   }
 
   const pathname = imageUrl.pathname;
+  const currentIndex = photoList.indexOf(pathname);
   const filename = decodeURIComponent(pathname.split('/').pop() || '图片');
   const extension = filename.includes('.') ? filename.split('.').pop().toUpperCase() : '未知';
   const nameWithoutExtension = filename.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ');
@@ -57,6 +61,18 @@ function showImage(imageUrl) {
   downloadLink.download = filename;
   image.src = imageUrl.href;
   image.alt = nameWithoutExtension;
+
+  const navigate = (offset) => {
+    if (currentIndex < 0 || photoList.length < 2) return;
+    const nextIndex = (currentIndex + offset + photoList.length) % photoList.length;
+    window.location.href = `/photo-viewer?src=${encodeURIComponent(photoList[nextIndex])}`;
+  };
+  if (previousButton && nextButton) {
+    previousButton.disabled = currentIndex < 0 || photoList.length < 2;
+    nextButton.disabled = currentIndex < 0 || photoList.length < 2;
+    previousButton.addEventListener('click', () => navigate(-1));
+    nextButton.addEventListener('click', () => navigate(1));
+  }
 
   image.addEventListener('load', () => {
     loading.hidden = true;
@@ -134,6 +150,8 @@ function showImage(imageUrl) {
     if (event.key === '0') {
       setZoom(1);
     }
+    if (event.key === 'ArrowLeft') navigate(-1);
+    if (event.key === 'ArrowRight') navigate(1);
     if (event.key.toLowerCase() === 'f') {
       if (document.body.classList.contains('is-fullscreen')) exitImmersiveMode();
       else enterImmersiveMode();

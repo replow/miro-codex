@@ -9,6 +9,7 @@
       content="Ronova 图库，收藏与分享喜欢的二次元图片。"
     />
     <title>图库 · Ronova</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('ronova-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="no-photos">
@@ -31,6 +32,9 @@
             </svg>
             <span>API 文档</span>
           </a>
+          <button class="theme-action" type="button" data-theme-toggle aria-label="切换深色模式" title="切换深色模式">
+            <svg data-theme-icon viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5 8.5 8.5 0 1 0 20.5 14.6Z" /></svg>
+          </button>
         </nav>
       </header>
 
@@ -41,6 +45,20 @@
               <h1 id="gallery-title">图库</h1>
               <p class="photo-count"><span data-photo-count>0</span> 张图片</p>
             </div>
+          </div>
+
+          <div class="gallery-toolbar">
+            <div class="filter-group" role="group" aria-label="按图片比例筛选">
+              <button class="filter-button is-active" type="button" data-filter="all">全部</button>
+              <button class="filter-button" type="button" data-filter="landscape">横图</button>
+              <button class="filter-button" type="button" data-filter="portrait">竖图</button>
+              <button class="filter-button" type="button" data-filter="square">方图</button>
+            </div>
+            <label class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5" /></svg>
+              <span class="sr-only">搜索图片</span>
+              <input type="search" data-photo-search placeholder="搜索图片名称" autocomplete="off" />
+            </label>
           </div>
 
           <div class="photo-grid" aria-label="图片列表">
@@ -61,5 +79,6 @@
         </section>
       </main>
     </div>
+    <script src="/site.js" defer></script>
   </body>
 </html>
