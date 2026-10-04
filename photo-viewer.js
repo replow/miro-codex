@@ -1,6 +1,4 @@
 const params = new URLSearchParams(window.location.search);
-const requestedPath = params.get('src');
-const imageUrl = requestedPath ? new URL(requestedPath, window.location.origin) : null;
 
 const image = document.querySelector('[data-viewer-image]');
 const stage = document.querySelector('[data-viewer-stage]');
@@ -12,6 +10,26 @@ const fullscreenToggle = document.querySelector('[data-fullscreen-toggle]');
 const appShell = document.querySelector('.app-shell');
 let immersiveMode = false;
 
+async function resolveImageUrl() {
+  if (params.get('random') === '1') {
+    loading.textContent = '正在抽取随机图片…';
+    const response = await fetch('/api', { method: 'HEAD', redirect: 'follow', cache: 'no-store' });
+    if (!response.ok) throw new Error('Could not choose a random image');
+    const randomUrl = new URL(response.url);
+    if (randomUrl.origin !== window.location.origin || !randomUrl.pathname.startsWith('/photos/')) {
+      throw new Error('The random image URL is invalid');
+    }
+    window.history.replaceState(null, '', `${window.location.pathname}?src=${encodeURIComponent(randomUrl.pathname)}`);
+    return randomUrl;
+  }
+
+  const requestedPath = params.get('src');
+  if (!requestedPath) return null;
+  const requestedUrl = new URL(requestedPath, window.location.origin);
+  if (requestedUrl.origin !== window.location.origin || !requestedUrl.pathname.startsWith('/photos/')) return null;
+  return requestedUrl;
+}
+
 function setError() {
   loading.hidden = true;
   image.hidden = true;
@@ -20,9 +38,12 @@ function setError() {
   document.title = '图片无法打开 · Ronova';
 }
 
-if (!imageUrl || imageUrl.origin !== window.location.origin || !imageUrl.pathname.startsWith('/photos/')) {
-  setError();
-} else {
+function showImage(imageUrl) {
+  if (!imageUrl) {
+    setError();
+    return;
+  }
+
   const pathname = imageUrl.pathname;
   const filename = decodeURIComponent(pathname.split('/').pop() || '图片');
   const extension = filename.includes('.') ? filename.split('.').pop().toUpperCase() : '未知';
@@ -120,3 +141,5 @@ if (!imageUrl || imageUrl.origin !== window.location.origin || !imageUrl.pathnam
     if (event.key === 'Escape' && document.body.classList.contains('is-fullscreen')) exitImmersiveMode();
   });
 }
+
+resolveImageUrl().then(showImage).catch(setError);
